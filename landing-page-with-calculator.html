@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote No on Tip Credit Elimination</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #FBEFEA; /* Insulation Pink */
+            color: #620B14; /* Gabernet */
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+        }
+        header {
+            background: #620B14; /* Gabernet */
+            color: #F7B119; /* Sunshine */
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #DD3828 3px solid; /* Rooster Red */
+        }
+        header h1 {
+            margin: 0;
+            text-align: center;
+        }
+        .main-content {
+            background: #F3C3B6; /* Pale Pink */
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        #calculator {
+            background: #EAEFDB; /* Tile Green */
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px 0;
+        }
+        button {
+            background-color: #DD3828; /* Rooster Red */
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #F7B119; /* Sunshine */
+        }
+        #result {
+            font-weight: bold;
+            margin-top: 20px;
+            color: #195029; /* Mid Green */
+        }
+        .citation {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #F3C3B6; /* Pale Pink */
+            border-radius: 5px;
+        }
+        .citation a {
+            color: #DD3828; /* Rooster Red */
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .citation a:hover {
+            color: #620B14; /* Gabernet */
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Vote NO on Tip Credit Elimination</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <h2>Why This Ballot Initiative is Harmful</h2>
+            <p>The proposed ballot initiative to eliminate tip credits could have severe negative consequences for restaurants, workers, and customers:</p>
+            <ul>
+                <li>Restaurants will face increased payroll costs, forcing them to raise prices.</li>
+                <li>Higher prices may lead to decreased demand and potential job losses.</li>
+                <li>Fewer staff could result in lower service quality, further impacting demand.</li>
+                <li>Workers may end up earning less overall due to reduced tips and hours.</li>
+            </ul>
+            <p>A recent study has shown that:</p>
+            <ul>
+                <li>For every 1% increase in price, restaurants see a 1.56% decrease in demand.</li>
+                <li>For every 1% decrease in service quality, restaurants experience a 1.85% decrease in demand.</li>
+            </ul>
+        </div>
+
+        <div id="calculator">
+            <h2>Impact Calculator</h2>
+            <p>Use this calculator to see how price increases and service quality declines could affect a restaurant's sales:</p>
+            <input type="number" id="initialSales" placeholder="Initial total sales ($)" required>
+            <input type="number" id="priceIncrease" placeholder="Price increase (%)" required>
+            <input type="number" id="serviceDecline" placeholder="Service quality decline (%)" required>
+            <button onclick="calculate()">Calculate Impact</button>
+            <div id="result"></div>
+        </div>
+
+        <div class="citation">
+            <a href="https://cssh.northeastern.edu/gap/wp-content/uploads/sites/62/2024/04/Working-paper-8-1.pdf" target="_blank">View the Study</a>
+        </div>
+    </div>
+
+    <script>
+        function calculate() {
+            const initialSales = parseFloat(document.getElementById('initialSales').value);
+            const priceIncrease = parseFloat(document.getElementById('priceIncrease').value);
+            const serviceDecline = parseFloat(document.getElementById('serviceDecline').value);
+
+            if (isNaN(initialSales) || isNaN(priceIncrease) || isNaN(serviceDecline)) {
+                alert("Please enter valid numbers for all fields.");
+                return;
+            }
+
+            const priceElasticity = 1.56;
+            const serviceElasticity = 1.85;
+
+            const salesAfterPriceIncrease = initialSales * (1 - (priceIncrease * priceElasticity / 100));
+            const finalSales = salesAfterPriceIncrease * (1 - (serviceDecline * serviceElasticity / 100));
+
+            const percentageChange = ((finalSales - initialSales) / initialSales) * 100;
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                <p>Initial Sales: $${initialSales.toFixed(2)}</p>
+                <p>Final Sales: $${finalSales.toFixed(2)}</p>
+                <p>Change in Sales: ${percentageChange.toFixed(2)}%</p>
+                <p>Total Impact: $${(initialSales - finalSales).toFixed(2)}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
