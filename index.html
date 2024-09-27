@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vote No on Ballot Question 5</title>
+    <title>Vote No on Question 5</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -81,27 +81,24 @@
 <body>
     <header>
         <div class="container">
-            <h1>Vote NO on Ballot Question 5</h1>
+            <h1>VOTE NO ON QUESTION 5</h1>
         </div>
     </header>
 
     <div class="container">
         <div class="main-content">
             <h2>Why This Ballot Initiative is Harmful</h2>
-            <p>The proposed ballot initiative to eliminate the tip credit would have severe negative consequences for restaurant employees, guests, communities and the state:</p>
+            <p>The proposed ballot initiative to eliminate tip credits could have severe negative consequences for restaurants, workers, and customers:</p>
             <ul>
-                <li>Restaurants will face increased payroll costs, forcing them to cut hours, lay people off, and raise prices.</li>
-                <li>Higher prices lead to decreased demand, lower earnings and further job losses.</li>
-                <li>Fewer staff leads to lower service quality, further impacting demand, earnings, and employment.</li>
-
-                <p>A recent study has shown that:</p>
-
+                <li>Restaurants will face increased payroll costs, forcing them to raise prices.</li>
+                <li>Higher prices may lead to decreased demand and potential job losses.</li>
+                <li>Fewer staff could result in lower service quality, further impacting demand.</li>
+                <li>Workers may end up earning less overall due to reduced tips and hours.</li>
+            </ul>
+            <p>A recent study has shown that:</p>
+            <ul>
                 <li>For every 1% increase in price, restaurants see a 1.56% decrease in demand.</li>
                 <li>For every 1% decrease in service quality, restaurants experience a 1.85% decrease in demand.</li>
-
-               <p><b> IF BALLOT QUESTION 5 PASSES IT WILL HURT EXACTLY THE PEOPLE IT INTENDS TO HELP</b></p>
-            </ul>
-            <ul>
             </ul>
         </div>
 
@@ -134,17 +131,24 @@
             const priceElasticity = 1.56;
             const serviceElasticity = 1.85;
 
-            const salesAfterPriceIncrease = initialSales * (1 - (priceIncrease * priceElasticity / 100));
-            const finalSales = salesAfterPriceIncrease * (1 - (serviceDecline * serviceElasticity / 100));
+            // Calculate new sales after price increase
+            const salesAfterPriceIncrease = initialSales * (1 + priceIncrease / 100);
+
+            // Apply price elasticity effect
+            const salesAfterPriceElasticity = salesAfterPriceIncrease * (1 - (priceIncrease * priceElasticity / 100));
+
+            // Apply service quality elasticity effect
+            const finalSales = salesAfterPriceElasticity * (1 - (serviceDecline * serviceElasticity / 100));
 
             const percentageChange = ((finalSales - initialSales) / initialSales) * 100;
 
             const resultDiv = document.getElementById('result');
             resultDiv.innerHTML = `
                 <p>Initial Sales: $${initialSales.toFixed(2)}</p>
-                <p>Final Sales: $${finalSales.toFixed(2)}</p>
-                <p>Change in Sales: ${percentageChange.toFixed(2)}%</p>
-                <p>Total Impact: $${(initialSales - finalSales).toFixed(2)}</p>
+                <p>Sales After Price Increase: $${salesAfterPriceIncrease.toFixed(2)}</p>
+                <p>Final Sales After Elasticity Effects: $${finalSales.toFixed(2)}</p>
+                <p>Overall Change in Sales: ${percentageChange.toFixed(2)}%</p>
+                <p>Total Impact: $${(finalSales - initialSales).toFixed(2)}</p>
             `;
         }
     </script>
